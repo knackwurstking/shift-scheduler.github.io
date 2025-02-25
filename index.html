@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="icon" href="/shift-scheduler.github.io/icons/favicon.ico" sizes="any" />
+        <link rel="icon" href="/shift-scheduler.github.io/icons/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/shift-scheduler.github.io/icons/apple-touch-icon-180x180.png" />
+
+        <title>Shift Scheduler</title>
+
+
+        <style>
+            html,
+            body {
+                overscroll-behavior-y: none !important;
+            }
+
+            html,
+            body,
+            #routerTarget {
+                width: 100%;
+                height: 100%;
+            }
+
+            #routerTarget {
+                padding-top: var(--ui-app-bar-height);
+            }
+        </style>
+      <script type="module" crossorigin src="/shift-scheduler.github.io/assets/index-Bf3EnQz4.js"></script>
+      <link rel="stylesheet" crossorigin href="/shift-scheduler.github.io/assets/index-gL2ncOfF.css">
+    <link rel="manifest" href="/shift-scheduler.github.io/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/shift-scheduler.github.io/registerSW.js"></script></head>
+
+    <body class="ui-container">
+        <!-- MARK: Layout -->
+
+        <div id="routerTarget" class="ui-auto-scroll ui-hide-scrollbar"></div>
+
+        <div class="ui-app-bar" position="top" fixed>
+            <div class="left">
+                <button
+                    class="date-picker"
+                    style="
+                        display: none;
+                        margin: 0.25rem;
+                        height: calc(100% - 0.5rem);
+                        text-wrap: nowrap;
+                    "
+                    variant="full"
+                ></button>
+
+                <button
+                    class="back"
+                    style="display: none"
+                    variant="ghost"
+                    color="primary"
+                    icon
+                    onclick="history.back()"
+                >
+                    <div class="bi bi-chevron-left"></div>
+                </button>
+            </div>
+
+            <div class="center">
+                <h4 class="title ui-ellipsis">Shift Scheduler</h4>
+            </div>
+
+            <div class="right">
+                <button class="edit" style="display: none" variant="ghost" icon>
+                    <i class="bi bi-pen"></i>
+                </button>
+
+                <button class="today" style="display: none" variant="ghost" icon>
+                    <i class="bi bi-calendar-event"></i>
+                </button>
+
+                <button class="printer" style="display: none" variant="ghost" icon>
+                    <i class="bi bi-printer"></i>
+                </button>
+
+                <button
+                    class="settings"
+                    style="display: none"
+                    variant="ghost"
+                    icon
+                    onclick="location.hash = '#settings'"
+                >
+                    <i class="bi bi-gear"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- MARK: Dialogs -->
+
+        <dialog name="date-picker">
+            <form method="dialog">
+                <label>
+                    Pick a Date
+                    <input type="month" />
+                </label>
+
+                <div class="ui-flex-grid-row" style="--justify: flex-end">
+                    <button class="cancel" color="secondary">Cancel</button>
+                    <input type="submit" />
+                </div>
+            </form>
+        </dialog>
+
+        <!-- MARK: Templates -->
+
+        <template name="calendar">
+            <!-- MARK: Calendar Page Template -->
+
+            <style>
+                html,
+                body {
+                    overscroll-behavior: none !important;
+                }
+
+                #routerTarget .item-container {
+                    --week-days-height: 2.5rem;
+                    --edit-mode-height: 4.5rem;
+
+                    position: relative;
+                    overflow: hidden;
+                    width: 100%;
+                    height: 100%;
+                    transition: height 0.25s ease;
+                }
+
+                #routerTarget .item-container[edit-mode] {
+                    height: calc(100% - var(--edit-mode-height));
+                }
+
+                #routerTarget .edit-mode {
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    height: var(--edit-mode-height);
+                    transform: translateY(100%);
+                    transition: transform 0.25s ease;
+                }
+
+                #routerTarget .edit-mode[edit-mode] {
+                    transform: translateY(0);
+                }
+
+                #routerTarget .item {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    min-width: 100%;
+                }
+
+                #routerTarget .item-content {
+                    width: calc(100% - 0.25rem);
+                    height: calc(100% - 0.25rem);
+                }
+
+                #routerTarget .week-days {
+                    height: var(--week-days-height);
+                    padding: 1px 0;
+                }
+
+                #routerTarget .days {
+                    height: 100%;
+                    padding: 1px 0;
+                }
+
+                #routerTarget .week-day,
+                #routerTarget .day {
+                    border-radius: var(--ui-radius);
+                    border: var(--ui-border-width) var(--ui-border-style) var(--ui-border-color);
+                }
+
+                #routerTarget .item-container[no-border] .week-days,
+                #routerTarget .item-container[no-border] .days {
+                    border: none;
+                }
+
+                #routerTarget .week-day {
+                    width: calc(100% / 7);
+                    overflow: hidden;
+                    height: 100%;
+                    font-size: 115%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                #routerTarget .saturday,
+                #routerTarget .sunday {
+                    font-weight: bold;
+                }
+
+                #routerTarget .saturday,
+                #routerTarget .sunday {
+                    background-color: var(--ui-muted);
+                    color: var(--ui-muted-text);
+                }
+
+                #routerTarget .day {
+                    height: 100%;
+                    overflow: hidden;
+                    cursor: pointer;
+                }
+
+                #routerTarget .day.today::after {
+                    content: "";
+                    position: absolute;
+                    z-index: 9;
+                    top: -1rem;
+                    left: -1rem;
+                    width: 2rem;
+                    height: 2rem;
+                    border-radius: var(--ui-radius);
+                    border-bottom-right-radius: 50%;
+                    background-color: orange;
+                    filter: blur(1rem);
+                    animation: fade-in 0.5s;
+                }
+
+                #routerTarget .day.note::before {
+                    content: "";
+                    position: absolute;
+                    z-index: 8;
+                    bottom: -1rem;
+                    right: -1rem;
+                    width: 2rem;
+                    height: 2rem;
+                    border-radius: var(--ui-radius);
+                    border-top-left-radius: 50%;
+                    background-color: red;
+                    filter: blur(1rem);
+                    animation: fade-in 0.5s;
+                }
+
+                #routerTarget .day .date {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    padding: 0.5vmin;
+                    font-size: 3vmin;
+                    font-size: clamp(0rem, 3vmin, 1rem);
+                    border-radius: inherit;
+                }
+
+                #routerTarget .day .shift {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 5vmin;
+                    font-weight: bold;
+                    color: var(--shift-color, var(--ui-text));
+                    border-radius: inherit;
+                }
+
+                @media (orientation: landscape) {
+                    #routerTarget .day .shift {
+                        left: 4vmin;
+                    }
+                }
+
+                @media (orientation: portrait) {
+                    #routerTarget .day .shift {
+                        top: 5vmin;
+                    }
+                }
+
+                @keyframes fade-in {
+                    from {
+                        opacity: 0;
+                    }
+                    to {
+                        opacity: 1;
+                    }
+                }
+            </style>
+
+            <div class="item-container ui-flex-grid-row ui-none-select">
+                <div class="item item1" style="left: -100%"></div>
+
+                <div class="item item2" style="left: 0"></div>
+
+                <div class="item item3" style="left: 100%"></div>
+            </div>
+
+            <div
+                class="edit-mode ui-flex-grid-row ui-auto-scroll-x ui-hide-scrollbar"
+                style="--gap: 0.5rem"
+            ></div>
+
+            <!-- MARK: Calendar Item Template -->
+
+            <template name="calendar-item-content">
+                <div class="item-content ui-flex-grid" style="--gap: 0.05rem">
+                    <div class="week-days ui-flex-grid-row" class="week-days-row" gap="0.05rem">
+                        <div class="week-day ui-flex-grid-item"></div>
+                        <div class="week-day ui-flex-grid-item"></div>
+                        <div class="week-day ui-flex-grid-item"></div>
+                        <div class="week-day ui-flex-grid-item"></div>
+                        <div class="week-day ui-flex-grid-item"></div>
+                        <div class="week-day ui-flex-grid-item"></div>
+                        <div class="week-day ui-flex-grid-item"></div>
+                    </div>
+                </div>
+            </template>
+        </template>
+
+        <template name="settings">
+            <!-- MARK: Settings Page Template -->
+            <!-- TODO: ... -->
+        </template>
+
+    </body>
+</html>
