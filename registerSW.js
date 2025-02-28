@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/shift-scheduler.github.io/sw.js', { scope: '/shift-scheduler.github.io/' })})}
