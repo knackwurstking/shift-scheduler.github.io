@@ -219,7 +219,7 @@ var Y=Object.defineProperty;var V=(e,r,t)=>r in e?Y(e,r,{enumerable:!0,configura
     <section>
         <label class="ui-flex justify-between align-center" style="padding: var(--ui-spacing)">
             Edit entries
-            <button>Browse</button>
+            <button disabled>Browse</button>
         </label>
     </section>
 `;function Oe(){const e=document.createElement("article");return e.className="db-browser",e.innerHTML=Ce,e}const je=v`
