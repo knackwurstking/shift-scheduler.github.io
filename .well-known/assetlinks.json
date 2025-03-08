@@ -1,8 +1,0 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "io.github.knackwurstking.twa",
-        "sha256_cert_fingerprints": ["18:46:EE:EF:08:51:97:D2:C5:F3:65:75:97:FB:72:F7:5F:82:D0:2E:2A:FB:FC:24:D1:AA:C7:BC:EA:6C:CB:ED"]
-      }
-    }]
