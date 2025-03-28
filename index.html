@@ -6,7 +6,10 @@
 
         <link rel="icon" href="/shift-scheduler.github.io/assets/icons/favicon.ico" sizes="any" />
         <link rel="icon" href="/shift-scheduler.github.io/assets/icons/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/shift-scheduler.github.io/assets/icons/apple-touch-icon-180x180.png" />
+        <link
+            rel="apple-touch-icon"
+            href="/shift-scheduler.github.io/assets/icons/apple-touch-icon-180x180.png"
+        />
 
         <title>Shift Scheduler</title>
 
@@ -28,7 +31,7 @@
                 padding-top: var(--ui-app-bar-height);
             }
         </style>
-      <script type="module" crossorigin src="/shift-scheduler.github.io/assets/index-Cgmcd96f.js"></script>
+      <script type="module" crossorigin src="/shift-scheduler.github.io/assets/index-DAd3hZ5O.js"></script>
       <link rel="stylesheet" crossorigin href="/shift-scheduler.github.io/assets/index-1efpsoan.css">
     <link rel="manifest" href="/shift-scheduler.github.io/manifest.webmanifest"></head>
 
@@ -71,11 +74,21 @@
                     <i class="bi bi-pen"></i>
                 </button>
 
-                <button class="today" style="display: none" variant="ghost" icon>
+                <button
+                    class="today"
+                    style="display: none"
+                    variant="ghost"
+                    icon
+                >
                     <i class="bi bi-calendar-event"></i>
                 </button>
 
-                <button class="printer" style="display: none" variant="ghost" icon disabled>
+                <button
+                    class="printer"
+                    style="display: none"
+                    variant="ghost"
+                    icon
+                >
                     <i class="bi bi-printer"></i>
                 </button>
 
@@ -90,159 +103,6 @@
                 </button>
             </div>
         </div>
-
-        <dialog name="date-picker">
-            <form method="dialog">
-                <label>
-                    Pick a Date
-                    <input type="month" style="min-width: 12ch" />
-                </label>
-
-                <div class="ui-flex-grid-row" style="--justify: flex-end">
-                    <button class="cancel" color="secondary">Cancel</button>
-                    <input type="submit" />
-                </div>
-            </form>
-        </dialog>
-
-        <dialog name="shift">
-            <form method="dialog">
-                <div class="ui-flex-grid">
-                    <div class="ui-flex-grid-item" style="width: 100%">
-                        <label class="ui-flex justify-between align-center ui-padding">
-                            Name (ex.: Night)
-                            <input
-                                class="name"
-                                type="text"
-                                style="margin-left: var(--ui-spacing)"
-                            />
-                        </label>
-                    </div>
-
-                    <div class="ui-flex-grid-item" style="width: 100%">
-                        <label class="ui-flex justify-between align-center ui-padding">
-                            Short (ex.: N)
-                            <input
-                                class="short-name"
-                                type="text"
-                                style="margin-left: var(--ui-spacing)"
-                            />
-                        </label>
-                    </div>
-
-                    <div class="ui-flex-grid-item" style="width: 100%">
-                        <label class="ui-flex justify-between align-center ui-padding">
-                            Pick a color
-                            <input class="color-picker" style="min-width: 4rem" type="color" />
-                        </label>
-                    </div>
-
-                    <div class="ui-flex-grid-item" style="width: 100%">
-                        <label class="ui-flex justify-between align-center ui-padding">
-                            Disable color
-                            <input class="default-color" type="checkbox" />
-                        </label>
-                    </div>
-
-                    <div class="ui-flex-grid-item" style="width: 100%">
-                        <label class="ui-flex justify-between align-center ui-padding">
-                            Hide shift
-                            <input class="hidden" type="checkbox" />
-                        </label>
-                    </div>
-
-                    <div class="ui-flex-grid-row" style="--justify: flex-end; width: 100%">
-                        <button class="cancel" color="secondary">Cancel</button>
-                        <input type="submit" />
-                    </div>
-                </div>
-            </form>
-        </dialog>
-
-        <dialog name="rhythm" fullscreen>
-            <form method="dialog" style="width: 100%; height: 100%">
-                <div class="ui-flex-grid" style="width: 100%; height: 100%; margin: 0">
-                    <div
-                        class="ui-flex-grid-item ui-auto-scroll-y ui-hide-scrollbar"
-                        style="width: 100%"
-                    >
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="left">Name</th>
-                                    <th class="left">Short</th>
-                                    <th class="left"></th>
-                                </tr>
-                            </thead>
-
-                            <tbody></tbody>
-                        </table>
-                    </div>
-
-                    <div
-                        class="ui-flex-grid-item"
-                        style="position: relative; max-height: 1.6rem; width: 100%"
-                    >
-                        <hr
-                            style="position: absolute; top: var(--ui-spacing); left: 0; width: 100%"
-                        />
-                    </div>
-
-                    <div
-                        class="picker ui-flex-grid-item"
-                        style="--flex: 0; position: relative; max-height: fit-content; width: 100%"
-                    >
-                        <div
-                            class="shifts-container ui-flex-grid-row ui-auto-scroll-x ui-hide-scrollbar"
-                            style="width: 100%; height: 100%"
-                        ></div>
-                    </div>
-
-                    <div class="ui-flex-grid-row" style="--justify: flex-end">
-                        <button class="cancel" color="secondary">Cancel</button>
-                        <input type="submit" />
-                    </div>
-                </div>
-            </form>
-
-            <template name="table-item">
-                <tr class="table-item">
-                    <td class="name left"></td>
-
-                    <td class="short-name left" style="color: inherit"></td>
-
-                    <td class="right">
-                        <div class="ui-flex-grid-row" style="--justify: flex-end">
-                            <div class="ui-flex-grid-item" style="--flex: 0">
-                                <button class="delete" variant="ghost" color="destructive" icon>
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </template>
-        </dialog>
-
-        <dialog name="day">
-            <form method="dialog" style="width: 100%; height: 100%">
-                <h4 class="title"></h4>
-
-                <select class="shift-select" style="width: 100%">
-                    <option value="0">Reset</option>
-                </select>
-
-                <div>
-                    <label>Note</label>
-                    <textarea class="db-note" rows="6" style="resize: none; width: 100%"></textarea>
-                </div>
-
-                <div class="ui-flex-grid-row" style="--justify: flex-end">
-                    <button class="cancel" color="secondary">Cancel</button>
-                    <input type="submit" />
-                </div>
-            </form>
-        </dialog>
 
         <template name="shift-card">
             <div
